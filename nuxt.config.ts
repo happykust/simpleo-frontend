@@ -6,5 +6,14 @@
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true }
+  devtools: { enabled: true },
+  modules: [
+    '@pinia/nuxt',
+    '@nuxtjs/tailwindcss'
+  ],
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.BASE_URL || 'http://localhost:8000/api/v1',
+    },
+  },
 })
