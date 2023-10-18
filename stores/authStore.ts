@@ -1,19 +1,20 @@
 /*
- * Copyright (C) Cyberzone MIREA, Inc - All Rights Reserved
+ * Copyright (C) Cyberzone - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
+ * Written by happykust - Kirill Nikolaevskiy <happykust@list.ru>, 2023
  */
 
 import {defineStore} from "pinia";
-import {IAuthStore, IEmployeeState} from "~/stores/interfaces/IAuthStore";
-import {IAuthTokens, ILoginCredentials} from "~/api/interfaces/auth.interface";
+import {IAuthStore} from "~/stores/interfaces/IAuthStore";
+import {IAuthTokens, ILoginCredentials, IUser} from "~/api/interfaces/auth.interface";
 import repositories from "~/api/repositories";
 
 const AuthRepository = repositories.auth;
 
 export const useAuthStore = defineStore('auth', {
   state: (): IAuthStore => ({
-    employee: null,
+    user: null,
     error: null,
     loading: false,
   }),
@@ -24,8 +25,8 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     hasPermission(permission: string): boolean {
-      if (!this.employee) return false;
-      return this.employee.aggregated_permissions.includes(permission) || this.employee.is_superuser;
+      if (!this.user) return false;
+      return this.user.permissions_agg.includes(permission);
     },
     async Login(loginData: ILoginCredentials) {
       this.error = null;
@@ -55,7 +56,7 @@ export const useAuthStore = defineStore('auth', {
       if (error != null) {
         this.error = error;
       }
-      this.employee = data;
+      this.user = data;
       this.loading = false;
     },
     async setAuthTokens(tokens: IAuthTokens | null) {

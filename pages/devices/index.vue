@@ -6,13 +6,21 @@
   -->
 
 <template>
-  <Head>
-    <Title>Главная | Cyberzone CP</Title>
-  </Head>
+    <Head>
+        <Title>Устройства | Cyberzone CP</Title>
+    </Head>
+    <Unavailable/>
 </template>
 
 <script>
+import Unavailable from "~/components/shared/Unavailable.vue";
+
 export default {
-  name: "index"
+    name: "index",
+    components: {Unavailable}
 }
 </script>
+
+<style scoped>
+
+</style>

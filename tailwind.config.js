@@ -1,15 +1,20 @@
 /*
- * Copyright (C) Cyberzone MIREA, Inc - All Rights Reserved
+ * Copyright (C) Cyberzone - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
+ * Written by happykust - Kirill Nikolaevskiy <happykust@list.ru>, 2023
  */
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [],
+  content: [
+    "./node_modules/flowbite/**/*.js"
+  ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }
 
