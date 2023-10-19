@@ -15,6 +15,7 @@ async function refreshAccessToken() {
     return await ofetch<IAuthTokens>("/login/refresh-token", {
         baseURL: config.public.baseURL,
         method: "POST",
+        headers: {"ngrok-skip-browser-warning": "1"},
         body: {"refresh_token": refresh_token},
         async onResponseError({response}) {
             console.log("[Auth] Refresh token is invalid. Forcing logout...");
@@ -30,7 +31,7 @@ const useAuthedFetch = async <T>(url: string, options: object = {}) => {
     const resp = await $fetch<T>(url, {
         ...options,
         baseURL: useRuntimeConfig().public.baseURL,
-        headers: {"Authorization": `Bearer ${localStorage.getItem("_silya")}`},
+        headers: {"Authorization": `Bearer ${localStorage.getItem("_silya")}`, "ngrok-skip-browser-warning": "1"},
         onResponse: async (context) => {
             if (context.response.status == 200) return ;
             if (context.response.status != 401) {

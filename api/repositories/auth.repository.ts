@@ -13,6 +13,7 @@ export default {
     return useFetch<IAuthTokens>("/auth/login", {
         baseURL: useRuntimeConfig().public.baseURL,
         method: "POST",
+      headers: {"ngrok-skip-browser-warning": "1"},
         body: credentials,
       })
   },
@@ -20,6 +21,7 @@ export default {
     const {data, error} = await useFetch("/auth/logout", {
       baseURL: useRuntimeConfig().public.baseURL,
       method: "POST",
+      headers: {"ngrok-skip-browser-warning": "1"},
       body: refreshTokensData
     })
     return {data, error}
@@ -27,6 +29,7 @@ export default {
   async getMe() {
     return await useAuthedFetch<IUser>("/auth/me", {
       method: "GET",
+      headers: {"ngrok-skip-browser-warning": "1"},
       retry: 10,
     }).then((data) => {
       return {data, error: null}

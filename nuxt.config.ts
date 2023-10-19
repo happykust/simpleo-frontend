@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      baseURL: process.env.BASE_URL || 'http://localhost:8000/api/v1',
+      baseURL: process.env.BASE_URL || 'https://16ff-193-41-142-236.ngrok-free.app/api/v1',
     },
   },
   tailwindcss: {
@@ -38,7 +38,8 @@ export default defineNuxtConfig({
         {rel:"stylesheet", href:"https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"},
       ],
       script: [
-        {src: "https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"}
+        {src: "https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"},
+        {src: "https://unpkg.com/html5-qrcode"}
       ]
     },
   },
