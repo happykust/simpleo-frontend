@@ -51,6 +51,17 @@ export default {
             return {data: null, error}
         });
     },
+    async getBoardGames() {
+        return useAuthedFetch<IBoardGame[]>("/board_game/", {
+            baseURL: useRuntimeConfig().public.baseURL,
+            method: "GET",
+            headers: {"ngrok-skip-browser-warning": "1"},
+        }).then((data: IBoardGame[]) => {
+            return {data, error: null}
+        }).catch((error) => {
+            return {data: null, error}
+        });
+    },
     async getBoardGame<IBoardGame>(board_game_uuid: UUID) {
         return useAuthedFetch<IBoardGame>(`/board_game/${board_game_uuid}`, {
             baseURL: useRuntimeConfig().public.baseURL,

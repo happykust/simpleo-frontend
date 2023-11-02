@@ -14,6 +14,7 @@ const BoardGameRepository = repositories.board_game;
 export const useBoardGameStore = defineStore('board_game', {
   state: (): IBoardGameStore => ({
     myReserves: null,
+    boardGames: null,
     error: null,
     loading: false,
   }),
@@ -29,6 +30,18 @@ export const useBoardGameStore = defineStore('board_game', {
       }
 
       this.myReserves = data;
+      this.loading = false;
+    },
+    async GetBoardGames() {
+      this.error = null;
+      this.loading = true;
+      const {data, error} = await BoardGameRepository.getBoardGames();
+
+      if (error != null) {
+        this.error = error;
+      }
+
+      this.boardGames = data;
       this.loading = false;
     }
   }

@@ -9,6 +9,6 @@ import {UUID} from "crypto";
 
 export interface Auditable {
     id: UUID,
-    create_at: Date,
+    created_at: Date,
     updated_at: Date | null
 }

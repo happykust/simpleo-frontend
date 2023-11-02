@@ -5,10 +5,11 @@
  * Written by happykust - Kirill Nikolaevskiy <happykust@list.ru>, 2023
  */
 
-import {IMyBoardGameReserve} from "~/api/interfaces/boardGame.interface";
+import {IBoardGame, IMyBoardGameReserve} from "~/api/interfaces/boardGame.interface";
 
 export interface IBoardGameStore {
     myReserves: IMyBoardGameReserve[] | null,
+    boardGames: IBoardGame[] | null,
     error: string | null,
     loading: boolean
 }
