@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      baseURL: process.env.BASE_URL || 'https://16ff-193-41-142-236.ngrok-free.app/api/v1',
+      baseURL: process.env.BASE_URL || 'http://localhost:8000/api/v1',
     },
   },
   tailwindcss: {

@@ -5,10 +5,10 @@
  * Written by happykust - Kirill Nikolaevskiy <happykust@list.ru>, 2023
  */
 
-import AuthRepository from "~/api/repositories/auth.repository";
-import BoardGameRepository from "~/api/repositories/boardGame.repository";
+import {UUID} from "crypto";
 
-export default {
-  auth: AuthRepository,
-  board_game: BoardGameRepository
+export interface Auditable {
+    id: UUID,
+    create_at: Date,
+    updated_at: Date | null
 }

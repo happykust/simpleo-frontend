@@ -7,10 +7,11 @@
 
 export default defineNuxtRouteMiddleware((to, from) => {
   const authStore = useAuthStore();
-  if (to.path != "/auth/login" && !authStore.isLoggedIn) {
+  // TODO: Move paths below to config!
+  if (!["/auth/login", "/auth/register"].includes(to.path) && !authStore.isLoggedIn) {
     return navigateTo("/auth/login");
   }
-  if (to.path == "/auth/login" && authStore.isLoggedIn) {
+  if (["/auth/login", "/auth/register"].includes(to.path) && authStore.isLoggedIn) {
     return navigateTo("/");
   }
 })

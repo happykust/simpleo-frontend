@@ -118,6 +118,16 @@ export interface ILoginCredentials {
     password: string
 }
 
+export interface IRegisterCredentials {
+    login: string,
+    password: string,
+    username: string,
+    firstname: string,
+    lastname: string,
+    patronymic: string | null,
+    birthday: Date
+}
+
 export interface IAuthTokens {
     access_token: string,
     refresh_token: string,

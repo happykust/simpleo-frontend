@@ -8,7 +8,7 @@
 <template>
   <div class="bg-slate-50 dark:bg-slate-600 dark:text-white">
     <NuxtLoadingIndicator/>
-    <NuxtPage v-if="useRouter().currentRoute.value.fullPath === '/auth/login'"/>
+    <NuxtPage v-if="['/auth/login', '/auth/register'].includes(useRouter().currentRoute.value.fullPath)"/>
     <NuxtLayout v-else>
       <NuxtPage />
     </NuxtLayout>

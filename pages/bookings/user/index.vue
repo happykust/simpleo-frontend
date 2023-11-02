@@ -11,7 +11,7 @@
   </Head>
   <h1 class="text-2xl font-bold mb-3">Мои бронирования</h1>
   <NuxtLink to="/bookings/user/scan">
-    <button type="button" class="border border-green-500 bg-green-700 text-white rounded p-2.5 mb-2">Сканировать QR код</button>
+    <button type="button" class="border border-green-500 bg-green-700 text-white rounded p-2.5 mb-2">Забронировать</button>
   </NuxtLink>
   <div v-if="bookings">
     <div v-for="booking in bookings" class="border border-gray-700 rounded w-64 bg-white p-3">

@@ -7,7 +7,7 @@
 
 import {defineStore} from "pinia";
 import {IAuthStore} from "~/stores/interfaces/IAuthStore";
-import {IAuthTokens, ILoginCredentials, IUser} from "~/api/interfaces/auth.interface";
+import {IAuthTokens, ILoginCredentials, IRegisterCredentials, IUser} from "~/api/interfaces/auth.interface";
 import repositories from "~/api/repositories";
 
 const AuthRepository = repositories.auth;
@@ -34,11 +34,24 @@ export const useAuthStore = defineStore('auth', {
       const {data, error} = await AuthRepository.auth(loginData);
 
       if (error != null) {
-        this.setAuthTokens(data.value);
+        await this.setAuthTokens(data.value);
         window.location.reload();
       }
 
-      this.error = error.value?.data.detail;
+      this.error = error?.value?.data.detail;
+      this.loading = false;
+    },
+    async Register(registerData: IRegisterCredentials) {
+      this.error = null;
+      this.loading = true;
+      const {data, error} = await AuthRepository.register(registerData);
+
+      if (error != null) {
+        await this.setAuthTokens(data.value);
+        window.location.reload();
+      }
+
+      this.error = error?.value?.data.detail;
       this.loading = false;
     },
     async Logout() {

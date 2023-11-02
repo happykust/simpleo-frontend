@@ -42,15 +42,6 @@ export default {
     }
     return {bookings, targets}
   },
-  methods: {
-    activate(booking_uuid) {
-
-    }
-  }
 }
 
 </script>
-
-<style scoped>
-
-</style>

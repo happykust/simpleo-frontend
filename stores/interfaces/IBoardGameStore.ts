@@ -5,10 +5,10 @@
  * Written by happykust - Kirill Nikolaevskiy <happykust@list.ru>, 2023
  */
 
-import AuthRepository from "~/api/repositories/auth.repository";
-import BoardGameRepository from "~/api/repositories/boardGame.repository";
+import {IMyBoardGameReserve} from "~/api/interfaces/boardGame.interface";
 
-export default {
-  auth: AuthRepository,
-  board_game: BoardGameRepository
+export interface IBoardGameStore {
+    myReserves: IMyBoardGameReserve[] | null,
+    error: string | null,
+    loading: boolean
 }
