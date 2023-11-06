@@ -6,7 +6,7 @@
   -->
 
 <template>
-  <!-- Main modal -->
+  <!-- Take board game modal -->
   <div id="take-board_game-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)]">
     <div class="relative w-full max-w-2xl max-h-full">
       <!-- Modal content -->
@@ -25,19 +25,19 @@
         </div>
         <!-- Modal body -->
         <div class="p-6 py-20 space-y-6 grid grid-cols-1">
-          <p class="text-xl font-bold justify-self-center text-indigo-600" v-if="!loading">{{ status }}</p>
-          <Spinner v-else />
+          <p class="text-xl font-bold justify-self-center text-indigo-600" v-if="!loading && !loaded_board_game">{{ status }}</p>
+          <Spinner v-if="loading" />
           <StreamBarcodeReader class="w-72 justify-self-center" @decode="onDecode" v-if="!loaded_board_game" />
           <div v-else class="grid grid-cols-1">
-            <img class="w-72 justify-self-center mb-5" :src="loaded_board_game.image_uri" :alt="loaded_board_game.title">
-            <h1 class="text-xl font-bold justify-self-center mb-3">{{ loaded_board_game.title }}</h1>
+            <S3Image class="w-72 justify-self-center mb-5" :src="loaded_board_game.image_uri" :alt="loaded_board_game.title" />
+            <h1 class="text-xl font-bold justify-self-center mb-3">{{ loaded_board_game.name }}</h1>
             <p class="justify-self-center">{{ loaded_board_game.description }}</p>
           </div>
         </div>
         <!-- Modal footer -->
         <div class="flex items-center justify-between p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
           <button data-modal-hide="take-board_game-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Отменить</button>
-          <button v-if="loaded_board_game" type="button" class="text-white bg-green-500 hover:bg-green-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Взять</button>
+          <button v-if="loaded_board_game" @click="takeBoardGame" type="button" class="text-white bg-green-500 hover:bg-green-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Взять</button>
         </div>
       </div>
     </div>
@@ -47,6 +47,7 @@
 <script setup>
 import { StreamBarcodeReader } from "vue-barcode-reader";
 import Spinner from "~/components/utils/Spinner.vue";
+import S3Image from "~/components/shared/S3Image.vue";
 </script>
 
 <script>
@@ -72,7 +73,32 @@ export default {
         return null;
       }
 
+      if (!data.available) {
+        this.status = "Этой игры нет в наличии, давай другую!";
+        this.loading = false;
+        return null;
+      }
+
       this.loaded_board_game = data;
+      this.loading = false;
+    },
+    async takeBoardGame() {
+      this.loading = true;
+
+      const {data, error} = await repositories.board_game.takeBoardGame({
+        id: this.loaded_board_game.id
+      })
+
+      if (data == null && error === undefined) {
+        this.status = "Не удалось взять игру =(";
+        this.loading = false;
+        return null;
+      }
+
+      this.status = "Приятной игры!";
+      this.loaded_board_game = null;
+
+      this.loading = false;
     }
   },
   data() {

@@ -1,4 +1,4 @@
-/*2-25"
+/*
  * Copyright (C) Cyberzone - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
@@ -31,11 +31,12 @@ const useAuthedFetch = async <T>(url: string, options: object = {}) => {
     const resp = await $fetch<T>(url, {
         ...options,
         baseURL: useRuntimeConfig().public.baseURL,
-        headers: {"Authorization": `Bearer ${localStorage.getItem("_silya")}`, "ngrok-skip-browser-warning": "1"},
+        // @ts-ignore
+        headers: {"Authorization": `Bearer ${localStorage.getItem("_silya")}`, ...options.headers},
         onResponse: async (context) => {
             if (context.response.status == 200) return ;
             if (context.response.status != 401) {
-                return Promise.reject(context.error);
+                return 
             }
 
             await refreshAccessToken().then(async (data) => {
@@ -45,7 +46,8 @@ const useAuthedFetch = async <T>(url: string, options: object = {}) => {
 
             const res: any = await useAuthedFetch(url, {
                 baseURL: useRuntimeConfig().public.baseURL,
-                headers: {"Authorization": `Bearer ${localStorage.getItem("_silya")}`},
+                // @ts-ignore
+                headers: {"Authorization": `Bearer ${localStorage.getItem("_silya")}`, ...options.headers},
             });
             context.response = res;
             new_resp = res;

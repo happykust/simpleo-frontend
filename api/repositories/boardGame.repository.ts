@@ -8,6 +8,7 @@
 import useAuthedFetch from "~/addons/useAuthedFetch";
 import {
     IBoardGame,
+    IBoardGameCreate,
     IBoardGameTakeAndPutRequest,
     IBoardGameTakeAndPutResponse,
     IMyBoardGameReserve
@@ -67,6 +68,18 @@ export default {
             baseURL: useRuntimeConfig().public.baseURL,
             method: "GET",
             headers: {"ngrok-skip-browser-warning": "1"},
+        }).then((data: IBoardGame) => {
+            return {data, error: null}
+        }).catch((error) => {
+            return {data: null, error}
+        });
+    },
+    async createBoardGame(board_game: IBoardGameCreate) {
+        return useAuthedFetch<IBoardGame>(`/board_game/`, {
+            baseURL: useRuntimeConfig().public.baseURL,
+            method: "POST",
+            // headers: {"Content-Type": "multipart/form-data"},
+            body: board_game
         }).then((data: IBoardGame) => {
             return {data, error: null}
         }).catch((error) => {

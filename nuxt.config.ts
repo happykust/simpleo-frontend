@@ -20,7 +20,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      baseURL: process.env.BASE_URL || 'http://localhost:8000/api/v1',
+      baseURL: process.env.BASE_URL || 'https://backend.morio.io/api/v1',
+      S3BaseURL: process.env.S3_BASE_URL || 'http://localhost:9001'
     },
   },
   tailwindcss: {

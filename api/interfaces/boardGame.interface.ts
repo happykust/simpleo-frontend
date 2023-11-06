@@ -24,6 +24,12 @@ export interface IMyBoardGameReserve {
     updated_at: Date | null
 }
 
+export interface IBoardGameCreate {
+    name: string
+    count: number
+    image: File
+}
+
 export interface IBoardGameTakeAndPutRequest {
     id: UUID
 }

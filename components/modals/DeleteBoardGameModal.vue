@@ -5,6 +5,14 @@
   - Written by happykust - Kirill Nikolaevskiy <happykust@list.ru>, 2023
   -->
 
+<script setup lang="ts">
+
+</script>
+
 <template>
 
 </template>
+
+<style scoped>
+
+</style>

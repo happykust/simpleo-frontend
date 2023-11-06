@@ -6,5 +6,15 @@
   -->
 
 <template>
-
+  <img :src="useRuntimeConfig().public.S3BaseURL + this.src" :alt="this.alt">
 </template>
+
+<script>
+
+export default {
+  props: {
+    src: String,
+    alt: String
+  },
+}
+</script>

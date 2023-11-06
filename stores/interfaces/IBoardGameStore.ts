@@ -6,10 +6,12 @@
  */
 
 import {IBoardGame, IMyBoardGameReserve} from "~/api/interfaces/boardGame.interface";
+import {UUID} from "crypto";
 
 export interface IBoardGameStore {
     myReserves: IMyBoardGameReserve[] | null,
     boardGames: IBoardGame[] | null,
+    showQRCodeBoardGameID: UUID | null,
     error: string | null,
     loading: boolean
 }

@@ -30,7 +30,7 @@
             </form>
           </div>
           <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-            <button type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+            <button data-modal-target="create-board_game-modal" data-modal-toggle="create-board_game-modal" type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
               Добавить игру
             </button>
             <button type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
@@ -56,7 +56,9 @@
             </thead>
             <tbody>
             <tr class="border-b dark:border-gray-700" v-for="board_game in boardGameStore.boardGames">
-              <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ board_game.image_uri }}</th>
+              <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <S3Image :src="board_game.image_uri" :alt="board_game.name" v-if="board_game.image_uri" class="w-28"/>
+              </th>
               <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ board_game.name }}</th>
               <td class="px-4 py-3">{{ board_game.count }}</td>
               <td class="px-4 py-3">{{ board_game.left_count }}</td>
@@ -71,6 +73,9 @@
                 </button>
                 <div :id="`${board_game.id}-dropdown`" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                   <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" :aria-labelledby="`${board_game.id}-dropdown-button`">
+                    <li>
+                      <a href="#" data-modal-target="view-qr-board_game-modal" data-modal-toggle="view-qr-board_game-modal" @click="selectBoardGameToShowQR(board_game.id)" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Показать QR-код</a>
+                    </li>
                     <li>
                       <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Изменить</a>
                     </li>
@@ -88,15 +93,22 @@
       <Spinner v-if="boardGameStore.loading" />
     </div>
   </section>
+
+  <CreateBoardGameModal />
+  <ViewQRCodeBoardGameModal />
+
 </template>
 
 <script>
 import {useBoardGameStore} from "~/stores/boardGameStore";
 import {initFlowbite} from "flowbite";
 import Spinner from "~/components/utils/Spinner.vue";
+import CreateBoardGameModal from "~/components/modals/CreateBoardGameModal.vue";
+import ViewQRCodeBoardGameModal from "~/components/modals/ViewQRCodeBoardGameModal.vue";
+import S3Image from "~/components/shared/S3Image.vue";
 
 export default {
-  components: {Spinner},
+  components: {S3Image, ViewQRCodeBoardGameModal, CreateBoardGameModal, Spinner},
   setup() {
     const boardGameStore = useBoardGameStore();
 
@@ -105,6 +117,11 @@ export default {
   async mounted() {
     await useBoardGameStore().GetBoardGames();
     initFlowbite();
+  },
+  methods: {
+    selectBoardGameToShowQR(boardGameUUID) {
+      this.boardGameStore.setBoardGameToShowQR(boardGameUUID);
+    }
   }
 }
 </script>
