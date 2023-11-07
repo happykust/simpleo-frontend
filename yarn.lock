@@ -6551,6 +6551,11 @@ vue-devtools-stub@^0.1.0:
   resolved "https://registry.yarnpkg.com/vue-devtools-stub/-/vue-devtools-stub-0.1.0.tgz#a65b9485edecd4273cedcb8102c739b83add2c81"
   integrity sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==
 
+vue-html-to-paper@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/vue-html-to-paper/-/vue-html-to-paper-2.0.3.tgz#66fccdb3a645c2ca564bdc9373436c83cdb20c2f"
+  integrity sha512-2Kbud/3yZNw1oho05vJgkYfqoXkHlpB7C06BdF89OkQgzKRLYeatVhJgPwXHnH+HskmhNWjSKzJyay9HnN4QvQ==
+
 vue-qrcode-reader@^5.3.9:
   version "5.3.9"
   resolved "https://registry.yarnpkg.com/vue-qrcode-reader/-/vue-qrcode-reader-5.3.9.tgz#b81d56f558ad59d0b08f6ba312803d9b3d0d2016"

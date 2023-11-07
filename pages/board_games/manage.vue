@@ -33,7 +33,7 @@
             <button data-modal-target="create-board_game-modal" data-modal-toggle="create-board_game-modal" type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
               Добавить игру
             </button>
-            <button type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+            <button @click="printQRCodes" type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
               Печать
             </button>
           </div>
@@ -97,6 +97,15 @@
   <CreateBoardGameModal />
   <ViewQRCodeBoardGameModal />
 
+  <div id="section-to-print">
+    <div class="grid grid-cols-3">
+      <div v-for="board_game in boardGameStore.boardGames" class="grid grid-cols-1 p-5 border border-gray-700 border-1 w-max">
+        <QrcodeVue :value="board_game.id" :size="113" class="justify-self-center p-1 border border-gray-700 border-dashed"/>
+        <h1 class="text-xl font-bold mt-1 justify-self-center">{{board_game.name}}</h1>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -106,9 +115,10 @@ import Spinner from "~/components/utils/Spinner.vue";
 import CreateBoardGameModal from "~/components/modals/CreateBoardGameModal.vue";
 import ViewQRCodeBoardGameModal from "~/components/modals/ViewQRCodeBoardGameModal.vue";
 import S3Image from "~/components/shared/S3Image.vue";
+import QrcodeVue from "qrcode.vue";
 
 export default {
-  components: {S3Image, ViewQRCodeBoardGameModal, CreateBoardGameModal, Spinner},
+  components: {QrcodeVue, S3Image, ViewQRCodeBoardGameModal, CreateBoardGameModal, Spinner},
   setup() {
     const boardGameStore = useBoardGameStore();
 
@@ -121,7 +131,28 @@ export default {
   methods: {
     selectBoardGameToShowQR(boardGameUUID) {
       this.boardGameStore.setBoardGameToShowQR(boardGameUUID);
+    },
+    async printQRCodes() {
+      window.print();
     }
   }
 }
 </script>
+
+<style>
+#section-to-print {
+  visibility: hidden;
+}
+
+@media print {
+  body {
+    visibility: hidden!important;
+  }
+  #section-to-print {
+    visibility: visible!important;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+</style>

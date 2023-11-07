@@ -27,6 +27,7 @@
     "qrcode.vue": "^3.4.1",
     "uuid": "^9.0.1",
     "vue-barcode-reader": "^1.0.3",
+    "vue-html-to-paper": "^2.0.3",
     "vue-qrcode-reader": "^5.3.9"
   }
 }
