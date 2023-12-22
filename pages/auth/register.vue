@@ -12,7 +12,9 @@
   <div class="grid grid-cols-12 grid-rows-[auto] h-screen justify-center content-center text-center">
 
     <div class="col-start-1 col-end-13">
-      <h1 class="font-bold text-5xl dark:text-white">simpleo</h1>
+      <NuxtLink to="/">
+        <h1 class="font-bold text-5xl dark:text-white">simpleo</h1>
+      </NuxtLink>
       <h3 class="text-xl tracking-wider dark:text-white">Регистрация</h3>
 
       <form class="login-form w-64 m-auto mt-5">
