@@ -1,12 +1,12 @@
 <!--
-  - Copyright (C) Cyberzone - All Rights Reserved
+  - Copyright (C) Simpleo - All Rights Reserved
   - Unauthorized copying of this file, via any medium is strictly prohibited
   - Proprietary and confidential
   - Written by happykust - Kirill Nikolaevskiy <happykust@list.ru>, 2023
   -->
 
 <template>
-  <div class="bg-slate-50 dark:bg-slate-600 dark:text-white">
+  <div class="bg-slate-50 dark:bg-slate-600 dark:text-white h-screen">
     <NuxtLoadingIndicator/>
     <NuxtPage v-if="['/auth/login', '/auth/register'].includes(useRouter().currentRoute.value.fullPath)"/>
     <NuxtLayout v-else>

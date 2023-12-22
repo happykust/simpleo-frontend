@@ -1,5 +1,5 @@
 <!--
-  - Copyright (C) Cyberzone - All Rights Reserved
+  - Copyright (C) Simpleo - All Rights Reserved
   - Unauthorized copying of this file, via any medium is strictly prohibited
   - Proprietary and confidential
   - Written by happykust - Kirill Nikolaevskiy <happykust@list.ru>, 2023
@@ -7,40 +7,40 @@
 
 <template>
   <Head>
-    <Title>Мои брони | Cyberzone</Title>
+    <Title>Simpleo</Title>
   </Head>
-  <h1 class="text-2xl font-bold mb-3">Мои бронирования</h1>
-  <NuxtLink to="/bookings/user/scan">
-    <button type="button" class="border border-green-500 bg-green-700 text-white rounded p-2.5 mb-2">Сканировать QR код</button>
-  </NuxtLink>
-  <div v-if="bookings">
-    <div v-for="booking in bookings" class="border border-gray-700 rounded w-64 bg-white p-3">
-      <h2 class="text-xl font-bold">Бронь {{ targets.filter(value => value.id === booking.target)[0].name }}</h2>
-      <h3 class>Статус: {{ booking.status }}</h3>
+  <div class="bg-slate-50 container w-full h-full mx-auto py-10 px-5 lg:px-40">
+    <div v-if="!newsStore.loading">
+      <div class="w-full flex justify-between">
+        <h1 class="h1 text-2xl font-bold text-black">Все новости</h1>
+        <NuxtLink to="/add" v-if="authStore.isLoggedIn">
+          <a href="" class="text-white focus:ring-4 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ribg-primary-800">Создать новость</a>
+        </NuxtLink>
+        <a href="#" v-else class="text-gray-500 bg-gray-100 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 border border-gray-500">Войдите для создания новостей</a>
+      </div>
+      <div class="mt-10">
+        <one_news v-for="news in newsStore.news" v-if="newsStore.news?.length > 0" :title="news.title" :content="news.content" :author="news.user.username" :created_at="news.created_at" />
+        <h1 v-else class="font-bold text-2xl text-center">Новостей пока нет =(</h1>
+      </div>
     </div>
-  </div>
-  <div v-else>
-
+    <Spinner v-else/>
   </div>
 </template>
 
 <script>
-import useAuthedFetch from "~/addons/useAuthedFetch";
+import One_news from "~/components/news/one_news.vue";
+import Spinner from "~/components/utils/Spinner.vue";
+import {useAuthStore} from "~/stores/authStore";
+import {useNewsStore} from "~/stores/newsStore";
 
 export default {
-  name: "MyBookings",
+  name: "SimpleoMain",
+  components: {Spinner, One_news},
   async setup() {
-    const bookings = await useAuthedFetch('/booking/my');
-    console.log(bookings);
-    const targets = [];
-    for (let booking in bookings) {
-      if (bookings[booking].target_type === "DEVICE") {
-        targets.push(await useAuthedFetch(`/device/${bookings[booking].target}`))
-      } else {
-        targets.push(await useAuthedFetch(`/board_game/${bookings[booking].target}`))
-      }
-    }
-    return {bookings, targets}
+    const authStore = useAuthStore();
+    const newsStore = useNewsStore();
+
+    return {authStore, newsStore}
   },
 }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Cyberzone - All Rights Reserved
+ * Copyright (C) Simpleo - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
  * Written by happykust - Kirill Nikolaevskiy <happykust@list.ru>, 2023
@@ -24,10 +24,6 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
-    hasPermission(permission: string): boolean {
-      if (!this.user) return false;
-      return this.user.permissions_agg.includes(permission);
-    },
     async Login(loginData: ILoginCredentials) {
       this.error = null;
       this.loading = true;
@@ -46,7 +42,7 @@ export const useAuthStore = defineStore('auth', {
       this.loading = true;
       const {data, error} = await AuthRepository.register(registerData);
 
-      if (error != null) {
+      if (error === null) {
         await this.setAuthTokens(data.value);
         window.location.reload();
       }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Cyberzone - All Rights Reserved
+ * Copyright (C) Simpleo - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
  * Written by happykust - Kirill Nikolaevskiy <happykust@list.ru>, 2023
@@ -20,8 +20,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      baseURL: process.env.BASE_URL || 'https://backend.morio.io/api/v1',
-      S3BaseURL: process.env.S3_BASE_URL || 'http://localhost:9001'
+      baseURL: process.env.BASE_URL || 'http://localhost:8000/api/v1',
     },
   },
   tailwindcss: {
@@ -31,7 +30,7 @@ export default defineNuxtConfig({
   },
   app: {
     baseURL: "/",
-    rootTag: "cybezone",
+    rootTag: "simpleo",
     head: {
       link: [
         {rel:"preconnect", href:"https://fonts.googleapis.com"},

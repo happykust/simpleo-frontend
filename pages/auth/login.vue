@@ -1,5 +1,5 @@
 <!--
-  - Copyright (C) Cyberzone - All Rights Reserved
+  - Copyright (C) Simpleo - All Rights Reserved
   - Unauthorized copying of this file, via any medium is strictly prohibited
   - Proprietary and confidential
   - Written by happykust - Kirill Nikolaevskiy <happykust@list.ru>, 2023
@@ -7,12 +7,12 @@
 
 <template>
   <Head>
-    <Title>Вход | Cyberzone CP</Title>
+    <Title>Вход | Simpleo</Title>
   </Head>
   <div class="grid grid-cols-12 grid-rows-[auto] h-screen justify-center content-center text-center">
 
     <div class="col-start-1 col-end-13">
-      <h1 class="font-bold text-5xl dark:text-white">cyberzone</h1>
+      <h1 class="font-bold text-5xl dark:text-white">simpleo</h1>
       <h3 class="text-xl tracking-wider dark:text-white">Вход</h3>
 
       <form class="login-form w-64 m-auto mt-5" v-on:submit.prevent="store.Login(this.login)">
@@ -21,8 +21,8 @@
         </div>
         <div class="grid gap-2 mb-2 md:grid-cols-1">
           <div class="mb-2">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Почта или телефон</label>
-            <input v-model="login.login" :disabled="store.loading" type="email" id="email" name="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="alex.fot@morio.io" required>
+            <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Имя пользователя</label>
+            <input v-model="login.username" :disabled="store.loading" type="text" id="username" name="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="alex.fot" required>
           </div>
           <div class="mb-2">
             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Пароль</label>
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       login: {
-        login: "",
+        username: "",
         password: ""
       }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Cyberzone - All Rights Reserved
+ * Copyright (C) Simpleo - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
  * Written by happykust - Kirill Nikolaevskiy <happykust@list.ru>, 2023
@@ -15,7 +15,6 @@ async function refreshAccessToken() {
     return await ofetch<IAuthTokens>("/login/refresh-token", {
         baseURL: config.public.baseURL,
         method: "POST",
-        headers: {"ngrok-skip-browser-warning": "1"},
         body: {"refresh_token": refresh_token},
         async onResponseError({response}) {
             console.log("[Auth] Refresh token is invalid. Forcing logout...");
